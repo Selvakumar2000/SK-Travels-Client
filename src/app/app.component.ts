@@ -17,10 +17,7 @@ export class AppComponent {
 
   setCurrentUser() {
     const user: any = JSON.parse(localStorage.getItem('user'));
-    if(user)
-    {
-      this.accountService.setCurrentUser(user);
-    }  
+    this.accountService.setCurrentUser(user);   
   }
   
   title = 'sk-travels';

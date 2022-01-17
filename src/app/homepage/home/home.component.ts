@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
     counter: number = 1;
     showpageContent: boolean = true;
     sliderBtn: boolean = true;
-    user: any;
   
     //authentication-page
     showauthPage: boolean = false;
