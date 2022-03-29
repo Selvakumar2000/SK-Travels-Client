@@ -49,8 +49,17 @@ export class AccountService {
 
   setCurrentUser(user: any)
   {
-    console.log(user);
     localStorage.setItem('user',JSON.stringify(user));
     this.currentUserSource.next(user);
+  }
+
+  generatePasswordresetLink(model: any)
+  {
+    return this.http.post(this.baseURL + 'account/resetpasswordlink', model, {responseType: 'text'});
+  }
+
+  resetPassword(model: any)
+  {
+    return this.http.post(this.baseURL + 'account/resetpassword', model, {responseType: 'text'});
   }
 }

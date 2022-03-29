@@ -1,20 +1,19 @@
 <!-- Reference ==> https://www.codingsnow.com/ -->
 <div class="home-page">
     <header>   
-        <a class="brand" (click)="showMain()">SK Travels</a>
+        <a class="brand" (click)="showMain()">SK Travels</a>        
         <div class="menu-btn" (click)="showMenu()" [class.active]="menu"></div>
         <div class="navigation" [class.active]="menu">
             <div class="navigation-items">
-                <a (click)="showHome()">Home</a>
-                <a (click)="showHome()">About</a>                
+                <a (click)="showHome()">Home</a>              
                 <a (click)="showHome()">Gallery</a>
                 <a (click)="showHome()">Contact</a>
                 <a (click)="showHome()" *ngIf="(accountService.currentUser$ | async) == null">Offers</a>
+                <a (click)="booking()" *ngIf="accountService.currentUser$ | async">Bookings</a>
                 <a (click)="signout()" *ngIf="accountService.currentUser$ | async">Signout</a>
             </div>
         </div>
-    </header>
-    
+    </header>   
     <section class="home">
         <video class="video-slide" [class.active]="showvideo && counter == 1" 
                src="./assets/seaport.mp4" #video1 loop
@@ -40,10 +39,10 @@
             <div class="content" [class.active]="showcontent && counter == 1">
                 <h1>
                     Wonderful.<br>
-                    <span>Kerala</span> 
-                </h1>
+                    <span>Journey</span>                     
+                </h1>               
                 <p align="justify">Travel opens your heart, broadens your mind, and fills your life with stories to tell. Love places that make you realize how tiny you and your problems are...
-                </p>
+                </p>                             
                 <a (click)="showauthentication()">Explore</a>
             </div>
             <div class="content" [class.active]="showcontent && counter == 2">
@@ -76,7 +75,7 @@
             <div class="content" [class.active]="showcontent && counter == 5">
                 <h1>
                     Road Trip.<br>
-                    <span>Togehter</span> 
+                    <span>Together</span> 
                 </h1>
                 <p align="justify">Travel opens your heart, broadens your mind, and fills your life with stories to tell. Love places that make you realize how tiny you and your problems are...
                 </p>
@@ -123,7 +122,9 @@
                                 </div>
                             </div>
                             <div class="forgot-link">
-                                <a>Forgot password?</a>
+                                <a (click)="passwordResetLinkGenerateModal(passwordResetLinkGenerate)">
+                                    Forgot password?
+                                </a>
                             </div>
                             <input class="submit-btn" type="submit" value="Login">
                         </form>
@@ -239,64 +240,223 @@
         <ng-container *ngIf="cities && (accountService.currentUser$ | async) as user">
             <div class="locations">
                 <h1 class="username">
-                    Where You Wanna Travel {{user.fullName| uppercase}}...
+                    Where You Wanna Travel {{user.FullName| uppercase}}...                    
                 </h1>
-                <div class="cities">
-                    <div class="cities1">
-                        <div class="city1">
-                            <img src="./assets/location9.jpg">
-                            <span class="tooltip">Kodaikanal</span>
-                        </div>
-                        <div class="city1">
-                            <img src="./assets/location2.jpg">
-                            <span class="tooltip">Dubai</span>
-                        </div>
-                        <div class="city1">
-                            <img src="./assets/location3.jpg">
-                            <span class="tooltip">Tajmahal</span>
-                        </div>
-                        <div class="city1">
-                            <img src="./assets/location4.jpg">
-                            <span class="tooltip">Maldives</span>
-                        </div>
-                        <div class="city1">
-                            <img src="./assets/location5.jpg">
-                            <span class="tooltip">Goa Beach</span>
+                <div class="left-arrow" *ngIf="locationset == 1 || locationset == 2 || locationset == 3">
+                    <i class="fas fa-angle-double-left" (click)="changelocationsetLA()"></i>
+                </div>
+                <div class="right-arrow" *ngIf="locationset == 1 || locationset == 2 || locationset == 3">
+                    <i class="fas fa-angle-double-right" (click)="changelocationsetRA()"></i>
+                </div>  
+                <div class="locations_row" *ngIf="locationset == 1">
+                    <div class="card" style="--i:1">
+                        <div class="box">
+                            <img src="./assets/kodai.jpg" alt="kodai" class="card-img">
+                            <div class="content">
+                                <h3>Kodaikanal</h3>
+                                <p align="justify">Travel opens your heart, broadens your mind, and fills your life with stories to tell. 
+                                </p>
+                                <a (click)="visitcity(1,'Kodaikanal')">Visit<i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
                         </div>
                     </div>
-                    <div class="cities2">
-                        <div class="city2">
-                            <img src="./assets/location6.jpg">
-                            <span class="tooltip">Mysore Palace</span>
-                        </div>
-                        <div class="city2">
-                            <img src="./assets/location7.jpg">
-                            <span class="tooltip">Megamalai</span>
-                        </div>
-                        <div class="city2">
-                            <img src="./assets/location8.jpg">
-                            <span class="tooltip">Kodaikanal</span>
-                        </div>
-                        <div class="city2">
-                            <img src="./assets/location1.jpg">
-                            <span class="tooltip">NewYork</span>
-                        </div>
-                        <div class="city2">
-                            <img src="./assets/location10.jpg">
-                            <span class="tooltip">Ooty Falls</span>
+                    <div class="card" style="--i:2">
+                        <div class="box">
+                            <img src="./assets/kerala.jpg" alt="kerala" class="card-img">
+                            <div class="content">
+                                <h3>kerala</h3>
+                                <p align="justify">Travel opens your heart, broadens your mind, and fills your life with stories to tell.
+                                </p>
+                                <a (click)="visitcity(2,'Kerala')">Visit<i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>                
+                    <div class="card" style="--i:3">
+                        <div class="box">
+                            <img src="./assets/maldives.jpg" alt="maldives" class="card-img">
+                            <div class="content">
+                                <h3>Maldives</h3>
+                                <p align="justify">Travel opens your heart, broadens your mind, and fills your life with stories to tell. 
+                                </p>
+                                <a (click)="visitcity(3,'Maldives')">Visit<i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>         
+                <div class="locations_row" *ngIf="locationset == 2">
+                    <div class="card" style="--i:1">
+                        <div class="box">
+                            <img src="./assets/mysore.jpg" alt="mysore" class="card-img">
+                            <div class="content">
+                                <h3>Mysore</h3>
+                                <p align="justify">Travel opens your heart, broadens your mind, and fills your life with stories to tell. 
+                                </p>
+                                <a>Visit<i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="--i:2">
+                        <div class="box">
+                            <img src="./assets/goa.jpg" alt="goa" class="card-img">
+                            <div class="content">
+                                <h3>Goa</h3>
+                                <p align="justify">Travel opens your heart, broadens your mind, and fills your life with stories to tell.
+                                </p>
+                                <a>Visit<i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="--i:3">
+                        <div class="box">
+                            <img src="./assets/tajmahal.jpg" alt="tajmahal" class="card-img">
+                            <div class="content">
+                                <h3>Delhi</h3>
+                                <p align="justify">Travel opens your heart, broadens your mind, and fills your life with stories to tell. 
+                                </p>
+                                <a>Visit<i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="locations_row" *ngIf="locationset == 3">
+                    <div class="card" style="--i:1">
+                        <div class="box">
+                            <img src="./assets/newyork.jpg" alt="newyork" class="card-img">
+                            <div class="content">
+                                <h3>NewYork</h3>
+                                <p align="justify">Travel opens your heart, broadens your mind, and fills your life with stories to tell. 
+                                </p>
+                                <a>Visit<i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="--i:2">
+                        <div class="box">
+                            <img src="./assets/dubai.jpg" alt="dubai" class="card-img">
+                            <div class="content">
+                                <h3>Dubai</h3>
+                                <p align="justify">Travel opens your heart, broadens your mind, and fills your life with stories to tell.
+                                </p>
+                                <a>Visit<i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="--i:3">
+                        <div class="box">
+                            <img src="./assets/Falls3.jpg" alt="niagara" class="card-img">
+                            <div class="content">
+                                <h3>Niagara Falls</h3>
+                                <p align="justify">Travel opens your heart, broadens your mind, and fills your life with stories to tell. 
+                                </p>
+                                <a>Visit<i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="booking_row" *ngIf="isvisit">
+                    <div class="box">
+                        <div class="topheading">
+                            <h2 (click)="displaylocations()"><u>{{cityname}}</u></h2>
+                            <i class="fas fa-image fas-lg" title="Images Gallery"
+                                (click)="showgallery(gallerymodal)"
+                            >
+                            </i>
+                        </div>                                                
+                        <div class="days" *ngIf="bookingstage == 1">
+                            <h3>How many days want to travel?</h3>
+                            <div class="days_select">
+                                <ng-select [items]="days" appendTo="body"
+                                            bindLabel="value" bindValue="id"
+                                            placeholder="Choose days...." required
+                                            class="dayselector" #traveldays="ngModel"
+                                            name="traveldays" [(ngModel)]="usertraveldetails.traveldays" 
+                                >
+                                </ng-select> 
+                                <small [class.d-none]="traveldays.valid || traveldays.untouched"
+                                       class="travelerrors1">
+                                    *Please choose your travelling days                                  
+                                </small>
+                            </div>      
+                            <div class="stageactionrow">
+                                <button class="btn btn-success successbtn" (click)="back('home')">
+                                    <i class="fas fa-arrow-left back"></i>Back
+                                </button>
+                                <button class="btn btn-info infobtn" (click)="savedays()"
+                                        [disabled]="traveldays.invalid">
+                                    <i class="fas fa-save save"></i>Save as Draft
+                                </button>
+                                <button class="btn btn-primary primarybtn" (click)="savedays(true)"
+                                        [disabled]="traveldays.invalid">
+                                    Proceed<i class="fas fa-arrow-down proceed"></i>
+                                </button>
+                            </div>                        
+                        </div>  
+                        <div class="tourcities" *ngIf="bookingstage == 2">
+                            <h3>Choose your favourite tourist places</h3>
+                            <i class="fas fa-info-circle" tooltip="Maxmimum {{placecount }} places can be select" placement="right"></i>
+                            <div class="cities_select">                                
+                                <ng-select [items]="visitingcities" appendTo="body"
+                                            bindLabel="CityName" bindValue="VisitingcityID"
+                                            placeholder="Choose places...." required
+                                            [multiple]="true" class="cityselector"
+                                            #travelcities="ngModel" name="travelcities" 
+                                            [(ngModel)]="usertraveldetails.travelcities"
+                                            
+                                >
+                                </ng-select>
+                                <small [class.d-none]="travelcities.valid || travelcities.untouched"
+                                       class="travelerrors2">
+                                    *Please select the cities to travel                                 
+                                </small>                                
+                            </div>
+                            <div class="stageactionrow citiesrow">
+                                <button class="btn btn-success successbtn" (click)="back('days')">
+                                    <i class="fas fa-arrow-left back"></i>Back
+                                </button>
+                                <button class="btn btn-info infobtn" (click)="savecities()"
+                                        [disabled]="travelcities.invalid">
+                                    <i class="fas fa-save save"></i>Save as Draft
+                                </button>
+                                <button class="btn btn-primary primarybtn" (click)="savecities(true,priceModal)"
+                                        [disabled]="travelcities.invalid">
+                                    Proceed<i class="fas fa-arrow-down proceed"></i>
+                                </button>
+                            </div> 
+                        </div> 
+                        <div class="payments" *ngIf="bookingstage == 3">
+                            <h3>Choose payment option</h3>
+                            <div class="options">
+                                <img src="./assets/gpay.png" alt="gpay" class="gpay" title="Google Pay">
+                                <img src="./assets/paytm.png" alt="paytm" class="paytm" title="Paytm">
+                                <img src="./assets/phonepe.jfif" alt="phonepe" class="phonepe" title="PhonePe">
+                                <img src="./assets/amazonpay.png" alt="amazonpay" class="amazonpay" title="Amazon Pay">
+                            </div>
+                            <h6 class="spotpay"><u>Click For Spot Payment</u></h6>
+                            <div class="payactionrow">
+                                <button class="btn btn-success success" (click)="back('cities')">
+                                    <i class="fas fa-arrow-left backbtn"></i>Back
+                                </button>
+                                <!-- <button class="btn btn-info info" (click)="savepayment()">
+                                    <i class="fas fa-save savebtn"></i>Save as Draft
+                                </button> -->
+                                <button class="btn btn-primary primary" (click)="savepayment(true)">
+                                    Submit<i class="fas fa-paper-plane planebtn"></i>
+                                </button>
+                            </div>  
+                        </div>                                            
+                    </div>
+                </div>  
             </div>
         </ng-container>
         <div class="media-icons">
-            <a href="https://www.instagram.com/_.princecharm._s/"><i class="fab fa-facebook-f"></i></a>
+            <a><i class="fab fa-facebook-f"></i></a>
             <a><i class="fab fa-instagram"></i></a>
             <a><i class="fab fa-whatsapp"></i></a>
             <a><i class="fab fa-twitter"></i></a>                
         </div>
         <ng-container *ngIf="sliderBtn">
-            <div class="slider-navigation" [class.inactive]="!sliderBtn">
+            <div class="slider-navigation" [class.inactive]="!sliderBtn"
+            [style.transform]="cities ? 'translateY(-40px)' : 'translateY(80px)'">
                 <div class="nav-btn" [class.active]="counter == 1" (click)="changeContent1()"></div>
                 <div class="nav-btn" [class.active]="counter == 2" (click)="changeContent2()"></div>
                 <div class="nav-btn" [class.active]="counter == 3" (click)="changeContent3()"></div>
@@ -306,3 +466,88 @@
         </ng-container>
     </section>
 </div>
+
+<!-- reset password link generate -->
+<ng-template #passwordResetLinkGenerate>
+    <div class="modal-header">
+        <h4>
+            SK TRAVELS
+        </h4>
+        <div class="heading">
+            <h5>Reset Password</h5>
+        </div>
+        <button type="button" class="btn-close close pull-right"
+                (click)="modalRef.hide()" style="cursor: pointer;">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container formcontainer">
+            <form #resetPasswordLinkGenerateForm="ngForm" autocomplete="off" ngNativeValidate 
+                  (ngSubmit)="resetPasswordLinkGenerateForm.form.valid && generatePasswordresetLink(resetPasswordLinkGenerateForm)">
+                <div class="field1" [class.active]="inputfocus">
+                    <i class="uil uil-at"></i>
+                    <input 
+                        type="email" 
+                        placeholder="Email ID" 
+                        name="email" 
+                        [(ngModel)]="resetpasswordLinkModel.email" 
+                        required
+                        (click)="focusInput()">
+                </div>
+                <div class="button">
+                    <button [class.btndisable]="resetPasswordLinkGenerateForm.form.invalid"
+                            [class.btnok]="resetPasswordLinkGenerateForm.form.valid"
+                            [disabled]="resetPasswordLinkGenerateForm.form.invalid">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div> 
+</ng-template>
+
+<ng-template #priceModal>       
+    <div class="modal-content">
+        <div class="modal-header border-0 priceheading">
+            <h2 class="modal-title">Total Expenditure</h2>
+            <button type="button" class="btn-close close pull-right"
+                    (click)="pricemodalRef?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body pricemodal border-0">  
+             <h3>
+                <i class="fa fa-inr priceicon"></i>
+                {{totalcost}}
+            </h3>
+        </div>
+        <div class="modal-footer border-0">
+            <button class="btn btn-info" 
+                    (click)="pricemodalRef?.hide()">
+                Close
+            </button>
+            <button class="btn btn-primary" type="submit"
+                    (click)="proceedtopayment()">
+                Proceed to payment
+            </button>
+        </div>
+    </div> 
+</ng-template>
+
+<ng-template #gallerymodal>
+    <div class="modal-content">
+        <div class="modal-header border-0 priceheading">
+            <h2 class="modal-title">{{cityname}}</h2>
+            <button type="button" class="btn-close close pull-right"
+                    (click)="gallerymodalRef?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body border-0 gallerymain">  
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages" 
+                         class="ngx-gallery">
+            </ngx-gallery>
+        </div>
+    </div> 
+</ng-template>

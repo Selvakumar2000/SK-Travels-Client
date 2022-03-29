@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 *{
     margin: 0;
@@ -11,4 +12,13 @@
 body{
     overflow-x: hidden;
     overflow-y: hidden;
+}
+
+.tooltip-inner{
+    border: 1px solid #fff;
+    background-color: rgb(62, 49, 236);
+}
+
+.bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before{
+    border-right-color: #fff;
 }

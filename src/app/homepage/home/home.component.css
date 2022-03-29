@@ -159,8 +159,6 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: translateY(80px);
-    margin-bottom: 12px;
 }
 
 .slider-navigation .nav-btn{
@@ -393,6 +391,7 @@ section{
     z-index: 999;
     text-align: center;
     margin-top: -25px;
+    position: absolute;
 }
 
 .errorbox2{
@@ -407,6 +406,7 @@ section{
     z-index: 999;
     text-align: center;
     margin-top: -25px;
+    position: absolute;
 }
 
 .errorbox3{
@@ -421,15 +421,35 @@ section{
     z-index: 999;
     text-align: center;
     margin-top: -25px;
+    position: absolute;
+}
+
+.slider-navigation.inactive{
+    display: none;
 }
 
 /*locations*/
 .locations{
     z-index: 888;
-    color: #fff;
-    width: 120%;
-    margin-top: 10px;
     display: block;
+}
+
+.locations .left-arrow i{
+    font-size: 60px;
+    color: #fff;
+    margin-top: 190px;
+    position: absolute;
+    margin-left: -80px;
+    cursor: pointer;
+}
+
+.locations .right-arrow i{
+    font-size: 60px;
+    color: #fff;
+    margin-top: 195px;
+    position: absolute;
+    margin-left: 980px;
+    cursor: pointer;
 }
 
 .locations .username{   
@@ -440,105 +460,518 @@ section{
     letter-spacing: 5px;
 }
 
-.locations .cities1{
+.locations_row{
     display: flex;
+    flex-wrap: wrap;
+    padding: 40px 0;
+    transform: translateY(-30px);
+}
+
+.locations_row .card{
+    position: relative;
+    width: 300px;
+    height: 400px;
+    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.05),
+                inset -2px -2px 2px rgba(255, 255, 255, 0.5),
+                2px 2px 2px rgba(0, 0, 0, 0.05),
+                -2px -2px 2px rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    margin: 10px;
+    opacity: 0;
+    animation: slide_right 0.6s linear forwards;
+    animation-delay:calc(0.2s * var(--i));
+}
+
+@keyframes slide_right{
+    0%
+    {
+        transform: translateX(500px);
+        opacity: 0;
+    }
+    100%
+    {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+.card-img{
+    display: block;
+    width: 100%;
+    height: 370px;
+    object-fit: cover;
+}
+
+.locations_row .card .box:before{
+    z-index: 777;
+    content: '';
+    position: absolute;
+    background: rgba(26, 96, 218, 0.3);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.locations_row .card .box{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    bottom: 15px;
+    right: 15px;
+    background: #ebf5fc;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    display: flex;
+    transition: 0.5s ease;
+}
+
+.locations_row .card .box .content{
+    display: block;
+    margin-left: -260px;
+}
+
+.locations_row .card .box .content h3{
+    color: #fff;
+    font-size: 1.3em;
+    z-index: 1;
+    transition: 0.5s ease;
+    margin-top: 130px;
+}
+
+.locations_row .card .box .content p{
+    font-size: 0.8em;
+    font-weight: 300;
+    color: #fff;
+    z-index: 1;
+    transition: 0.5s ease;
+    margin-bottom: 0px !important;
+    padding-bottom: 15px;
+}
+
+.locations_row .card .box .content a{
+    background: #03a9f4;
+    padding: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: absolute;
+    width: 130px;
+}
+
+.fa-arrow-circle-right{
+    color: #fff;
+    font-size: 35px;
+    position: absolute;
+    margin-left: 1px;
+    margin-top: -4px;
+}
+
+.locations_row .card:hover .box{
+    transform: translateY(-2%);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.locations_row .card:hover .box .content h3,
+.locations_row .card:hover .box .content p{
+    color: #fff;
+}
+
+.locations_row .card:hover .box .content a{
+    background: #ff568f;
+}
+
+/*reset password model*/
+.heading h5{
+    font-size: 23px;
     margin-top: 50px;
 }
 
-.locations .city1{
-    border-radius: 50%;
-    background: #fff;
-    width: 150px;
-    height: 150px;
-    margin-right: 35px;
-    cursor: pointer;
+.formcontainer .field1{
+    margin-left: 60px;
+    width: 75%;
+    border-bottom: 2px solid #eee;
 }
 
-.locations .city1 img{
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 2px solid #fff;
+.formcontainer .field1.active{
+    border-bottom: 2px solid #0065ff;
+    transition: 0.3s ease;
 }
 
-.locations .cities2{
+.formcontainer .field1 input{
+    border: none;
+    outline: none;
+    background: none;
+    width: 70%;
+    font-size: 1em;
+    padding-bottom: 5px;
+}
+
+.formcontainer .field1 i{
+    color: #828da0;
+    font-size: 1.3em;
+    margin-right: 10px;
+    padding-bottom: 5px;
+}
+
+.formcontainer .field1.active i{
+    color: #0065ff;
+    transition: 0.3s ease;
+}
+
+form .button{
+    height: 45px;
+    margin: 45px 0;
+}
+
+form .button button{
+    outline: none !important;
+}
+
+.btn-close.pull-right{
+    outline: none !important;
+}
+
+form .button .btnok{
+    height: 100%;
+    width: 100%;
+    outline-color: none;
+    color: #fff;
+    border: none;
+    outline: none !important;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #5aa7c5, #a150be);
+}
+
+form .button .btnok:hover{
+   background: linear-gradient(-135deg, #5aa4c2, #9d4cbb);
+   cursor: pointer;
+   outline: none !important;
+   border: none;
+   outline-color: none;
+}
+
+form .button .btndisable{
+    height: 100%;
+    width: 100%;
+    outline-color: none;
+    outline: none !important;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #7b9fad, #a47bb3);
+}
+
+form .button .btndisable:hover{
+   cursor: not-allowed;
+
+}
+
+/*booking area*/
+.booking_row{
     display: flex;
-    margin-top: 50px;
+    flex-wrap: wrap;
+    padding: 40px 0;
+    transform: translateY(-30px);
 }
 
-.locations .city2{
-    border-radius: 50%;
-    background: #fff;
-    width: 150px;
-    height: 150px;
-    margin-right: 35px;
+.booking_row .box{
+    position: relative;
+    width: 1100px;
+    height: 400px;
+    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.05),
+                inset -2px -2px 2px rgba(255, 255, 255, 0.5),
+                2px 2px 2px rgba(0, 0, 0, 0.05),
+                -2px -2px 2px rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    margin: 10px;
+}
+
+.booking_row .box .topheading{
+    display: flex;
+}
+
+.topheading h2{
+    width: 180px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 30px;
+    margin-left: 40px;
+    margin-top: 30px;
+    user-select: none;
+    cursor: pointer;    
+}
+
+.topheading i{
+    color: #fff;
+    font-size: 35px;
+    margin-top: 15px;
+    margin-left: 650px;
+    cursor: pointer;
+    
+}
+ 
+.gallerymain{
+    text-align: center;
+} 
+
+.ngx-gallery{
+    display: inline-block;
+    margin-bottom: 50px;
+}
+
+.box .days{
+    color: #fff;
+    opacity: 0;
+    animation: slide_top 0.8s linear forwards;
+    animation-delay: 0.2s ease;
+}
+
+.days h3{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.days .days_select{
+    margin-top: 35px;
+    margin-left: 272px;
+}
+
+.days_select .dayselector{
+    width: 400px;
+}
+
+.travelerrors1{
+    margin-top: 8px;
+    font-size: 15px;
+    position: absolute;
+    margin-left: 122px;
+}
+
+.travelerrors1:hover{
+    background: red;
     cursor: pointer;
 }
 
-.locations .city2 img{
+.travelerrors2{
+    margin-top: 8px;
+    font-size: 15px;
+    position: absolute;
+    margin-left: 250px;
+}
+
+.travelerrors2:hover{
+    background: red;
+    cursor: pointer;
+}
+
+.stageactionrow{
+    display: flex;
+}
+
+.citiesrow{
+    margin-top: 80px;
+}
+
+.stageactionrow .successbtn{
+    margin-left: 40px;
+    width: 140px;
+    border-radius: 20px;
+    margin-top: 130px;
+}
+
+.successbtn .back{
+   padding: 5px;
+}
+
+.stageactionrow .primarybtn{
+    margin-left: 20px;
+    width: 140px;
+    border-radius: 20px;
+    margin-top: 130px;
+}
+
+.primarybtn .proceed{
+    margin-left: 5px;
+}
+
+.stageactionrow .infobtn{
     width: 150px;
-    height: 150px;
+    border-radius: 20px;
+    margin-top: 130px;
+    margin-left: 450px;
+}
+
+.infobtn .save{
+    padding: 3px;
+}
+
+.box .tourcities{
+    color: #fff;
+    opacity: 0;
+    animation: slide_top 0.8s linear forwards;
+    animation-delay: 0.2s ease;
+}
+
+@keyframes slide_top{
+    0%
+    {
+        transform: translateY(180px);
+        opacity: 0;
+    }
+    100%
+    {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+.tourcities h3{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.tourcities .fa-info-circle{
+    position: absolute;
+    color: #fff;
+    cursor: pointer;
+    font-size: 25px;
+    margin-left: 732px;
+    margin-top: 3px;
+}
+  
+.tourcities .cities_select{
+    margin-top: 35px;
+    margin-left: 240px;
+}
+
+.cities_select .cityselector{
+    width: 500px;
+    position: absolute;
+}
+
+.priceheading{
+    margin-left: 80px;
+}
+
+.priceicon{
+    margin-left: 175px;
+}
+
+.box .payments{
+    color: #fff;
+    opacity: 0;
+    animation: slide_top 0.8s linear forwards;
+    animation-delay: 0.2s ease;
+}
+
+.payments h3{
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.payments .options{
+    margin-top: 25px;
+    margin-left: 195px;
+    display: flex;
+}
+
+.payments .options .gpay{
+    cursor: pointer;
+    width:115px;
+    height:115px;
     border-radius: 50%;
-    border: 2px solid #fff;
+    margin-right: 20px;
 }
 
-.city1 .tooltip{
-    position: relative;
-    margin-top: -190px;
-    margin-left: -10px;
-    border-radius: 6px;
-    height: 35px;
-    width: 170px;
-    color: #0065ff;
-    font-size: 1em;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 2px; 
-    background: #fff;
-    line-height: 35px;
+.payments .options .paytm{
+    cursor: pointer;
+    width:155px;
+    height:155px;
+    border-radius: 50%;
+    margin-right: 20px;
+    margin-top: -20px;
+}
+
+.payments .options .phonepe{
+    cursor: pointer;
+    width:120px;
+    height:120px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.payments .options .amazonpay{
+    cursor: pointer;
+    width:124px;
+    height:118px;
+    margin-top: 3px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.payments .spotpay{
+    cursor: pointer;
     text-align: center;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    transition: 0s;
-    opacity: 0;
-    pointer-events: none;
-    display: block;
+    font-size: 25px;
+    font-weight: 500;
+    margin-top: 20px;
 }
 
-.city1:hover .tooltip{
-    transition: all 0.5s ease;
-    opacity: 1;
+.payactionrow{
+    display: flex;
+    margin-left: -21px;
+    margin-top: -110px;
 }
 
-.city2 .tooltip{
-    position: relative;
-    margin-top: -190px;
-    margin-left: -10px;
-    border-radius: 6px;
-    height: 35px;
-    width: 170px;
-    color: #0065ff;
-    font-size: 1em;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    background: #fff;
-    line-height: 35px;
-    text-align: center;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    transition: 0s;
-    opacity: 0;
-    pointer-events: none;
-    display: block;
+.payactionrow .success{
+    margin-left: 40px;
+    width: 140px;
+    border-radius: 20px;
+    margin-top: 130px;
 }
 
-.city2:hover .tooltip{
-    transition: all 0.5s ease;
-    opacity: 1;
+.success .backbtn{
+   padding: 5px;
 }
 
-.slider-navigation.inactive{
-    display: none;
+.payactionrow .primary{
+    margin-left: 610px;
+    width: 140px;
+    border-radius: 20px;
+    margin-top: 130px;
 }
+
+.primary .planebtn{
+    margin-left: 5px;
+}
+
+/* .payactionrow .info{
+    width: 150px;
+    border-radius: 20px;
+    margin-top: 130px;
+    margin-left: 450px;
+}
+
+.info .savebtn{
+    padding: 3px;
+} */
 
 @media (max-width: 1040px){
 
@@ -657,53 +1090,11 @@ section{
     }
 
     .forgot-link{
-        margin-right: 55px;
+        margin-right: 5px;
+        margin-top: 5px;
     }
 
-    /*locations*/
-    .locations{
-        margin-left: 60px;
-    }
-
-    .locations .username{   
-        font-size: 1.5em;
-    }
-
-    .locations .city1{
-        width: 110px;
-        margin-left: 20px;
-        height: 110px;
-    }
-
-    .locations .city2{
-        width: 110px;
-        margin-left: 20px;
-        height: 110px;
-    }
-
-    .locations .city1 img {
-        width: 120px;
-        height: 120px;
-        border-radius: 44%;
-    }
-
-    .locations .city2 img {
-        width: 120px;
-        height: 120px;
-        border-radius: 44%;
-    }
-
-    .city1 .tooltip{       
-        margin-top: -158px; 
-        margin-left: -30px;       
-    }
     
-    .city2 .tooltip{       
-        margin-top: -158px;
-        margin-left: -30px;        
-    }
-
-
 }
 
 
@@ -787,69 +1178,5 @@ section{
         overflow-y: scroll;
         scroll-behavior: smooth;
     }
-    /*locations*/
-    .locations{
-        margin-left: 5px;
-        width: 220px;
-    }
-
-    .locations .username{   
-        font-size: 1.1em;
-        line-height: 35px;
-    }
-
-    .locations .cities{
-        display: flex;
-        margin-left: -25px;
-        margin-top: -50px;
-    }
-
-    .locations .cities1{
-        flex-direction: column;
-    }
-
-    .locations .cities2{
-        flex-direction: column;
-    }
-    .locations .city1{
-        width: 110px;
-        margin-left: 5px;
-        margin-bottom: 15px;
-        height: 110px;
-    }
-
-    .locations .city2{
-        width: 110px;
-        margin-left: 5px;
-        margin-bottom: 15px;
-        height: 110px;
-    }
-
-    .locations .city1 img {
-        width: 110px;
-        height: 110px;
-        margin-left: 1px;
-    }
-
-    .locations .city2 img {
-        width: 110px;
-        height: 110px;
-        margin-left: 1px;
-    }
-
-    .city1 .tooltip{
-        margin-top: -130px;
-        margin-left: 10px;
-        height: 30px;
-        width: 150px;
-        font-size: 0.8em;
-    }
-
-    .city2 .tooltip{
-        margin-top: -130px;
-        margin-left: 10px;
-        height: 30px;
-        width: 150px;
-        font-size: 0.8em;
-    }
+        
 }
