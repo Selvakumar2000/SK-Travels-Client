@@ -5,9 +5,10 @@
         <div class="menu-btn" (click)="showMenu()" [class.active]="menu"></div>
         <div class="navigation" [class.active]="menu">
             <div class="navigation-items">
-                <a (click)="showHome()">Home</a>              
+                <a (click)="showHome()">Home</a> 
+                <a (click)="showAnalytics(analyticsmodal)">Analytics</a>             
                 <a (click)="showHome()">Gallery</a>
-                <a (click)="showHome()">Contact</a>
+                <!-- <a (click)="showHome()">Contact</a> -->                
                 <a (click)="showHome()" *ngIf="(accountService.currentUser$ | async) == null">Offers</a>
                 <a (click)="booking()" *ngIf="accountService.currentUser$ | async">Bookings</a>
                 <a (click)="signout()" *ngIf="accountService.currentUser$ | async">Signout</a>
@@ -548,6 +549,21 @@
             <ngx-gallery [options]="galleryOptions" [images]="galleryImages" 
                          class="ngx-gallery">
             </ngx-gallery>
+        </div>
+    </div> 
+</ng-template>
+
+<ng-template #analyticsmodal>
+    <div class="modal-content">
+        <div class="modal-header border-0 priceheading">
+            <h2 class="modal-title">User Analytics</h2>
+            <button type="button" class="btn-close close pull-right"
+                    (click)="analyticsmodalRef?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body border-0 analyticsmain">  
+            <iframe title="Map Data" width="550" height="500" src="https://app.powerbi.com/reportEmbed?reportId=40500dc4-e5bf-4d73-b83f-7a33cf4f0059&autoAuth=true&ctid=f45c3768-a091-47aa-a5c4-28f9d04ce0df&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLW5vcnRoLWV1cm9wZS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
         </div>
     </div> 
 </ng-template>

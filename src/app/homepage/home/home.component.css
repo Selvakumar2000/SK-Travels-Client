@@ -726,6 +726,10 @@ form .button .btndisable:hover{
     text-align: center;
 } 
 
+.analyticsmain{
+    margin-left: 100px;
+}
+
 .ngx-gallery{
     display: inline-block;
     margin-bottom: 50px;

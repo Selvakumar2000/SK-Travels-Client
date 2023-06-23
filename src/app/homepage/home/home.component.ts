@@ -27,6 +27,14 @@ export class HomeComponent implements OnInit {
   showpageContent: boolean = true;
   sliderBtn: boolean = true;
   
+  //analytics
+  analyticsmodalRef: BsModalRef;
+  analyticsmodalconfig: ModalOptions = {
+    backdrop: 'static',
+    keyboard: false,
+    class: 'modal-lg'
+  };
+
   //authentication-page
   showauthPage: boolean = false;
   showSignin: boolean = true;
@@ -143,6 +151,12 @@ export class HomeComponent implements OnInit {
         preview: false
       }
     ];
+  }
+
+  //analytics
+  showAnalytics(analyticsmodal: TemplateRef<any>)
+  {
+    this.analyticsmodalRef = this.modalService3.show(analyticsmodal,this.analyticsmodalconfig);
   }
 
   //home-page
